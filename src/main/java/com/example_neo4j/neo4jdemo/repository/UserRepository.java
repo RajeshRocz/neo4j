@@ -6,6 +6,7 @@ import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /*
 create (Anniyan:Movie{name:'Anniyan',director:'Shankar'})
@@ -26,4 +27,6 @@ public interface UserRepository extends Neo4jRepository<User,Long> {
 
     @Query("MATCH(u:User)<-[r:RATED]-(m:Movie) RETURN u,r,m")
     public List<User> findAllNodes();
+
+    public Optional<User> findByName(String name);
 }

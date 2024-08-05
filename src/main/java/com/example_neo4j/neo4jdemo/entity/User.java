@@ -1,21 +1,19 @@
 package com.example_neo4j.neo4jdemo.entity;
 
-import org.springframework.data.neo4j.core.schema.GeneratedValue;
-import org.springframework.data.neo4j.core.schema.Id;
-import org.springframework.data.neo4j.core.schema.Node;
-import org.springframework.data.neo4j.core.schema.Relationship;
+import org.springframework.data.neo4j.core.schema.*;
 
 import java.util.List;
 
-@Node
+@Node(labels = {"User"})
 public class User {
 
     @Id
     @GeneratedValue
     private Long id;
+    @Property("name") //not needed if name is same in db and entity
     private String name;
-    @Relationship(type = "RATED")
-    private List<Movie> movies;
+    @Relationship(type = "RATED", direction = Relationship.Direction.INCOMING)
+    private List<Rated> ratedList;
 
     public User() {
     }
@@ -36,11 +34,11 @@ public class User {
         this.name = name;
     }
 
-    public List<Movie> getMovies() {
-        return movies;
+    public List<Rated> getRatedList() {
+        return ratedList;
     }
 
-    public void setMovies(List<Movie> movies) {
-        this.movies = movies;
+    public void setRatedList(List<Rated> ratedList) {
+        this.ratedList = ratedList;
     }
 }
